@@ -6,7 +6,7 @@ using namespace std;
 class Humain
 {
 public:
-    string GetNomHumain(); //Le getter
+    string GetNomHumain(); //Le getter pour le nom de l'humain
 	Humain(string nom); //Le constructeur
     void afficher();
     
@@ -14,7 +14,7 @@ private:
     string nom;
 };
 
-string Humain::GetNomHumain()
+string Humain::GetNomHumain() //Methode du getter pour l'humain
 {
     return nom; //On retourne la valeur de nom qui est private
 }
@@ -26,14 +26,14 @@ Humain::Humain(string nom)
 
 void Humain::afficher()
 {
-    cout << "Bonjour je m'apelle " << this->nom  << " et je suis encore un Humain" << endl;
+    cout << "Bonjour je m'apelle " << this->nom  << " et je suis encore un Humain" << endl; //Affichage de l'humain pour attester de son humanité
 }
 
 class Zombie
 {
 public:
-    Zombie(Humain* humain);
-    string GetNomZombie();
+    Zombie(Humain* humain); //Le constructeur
+    string GetNomZombie(); //Le getter pour le nom du zombie
 
 private:
     string nom;
@@ -41,19 +41,16 @@ private:
 
 Zombie::Zombie(Humain* humain)
 {
-    this->nom = CalculNomZombie(humain->GetNomHumain());
+    this->nom = CalculNomZombie(humain->GetNomHumain()); //Ici on recupère le nom de l'humain qui est derière le pointeur que l'on a fait passer en paramettre
 }
 
-string Zombie::GetNomZombie() {
-    return nom;
-}
-
-Zombie::~Zombie()
+string Zombie::GetNomZombie() //Methode du getter pour le zombie 
 {
+    return nom; //Comme pour l'humain on return le nom contenu dans l'attribut nom en parivate de la classe zombie 
 }
 
-
-string CalculNomZombie (string Humain) {
+string CalculNomZombie (string Humain) 
+{
     char ch;
     ch = Humain[0] + 32; //On ajoute 32 au caractère ASCII pour le passer en lowercase
     Humain = Humain[0]; //Ici j'ai pris le premier caractère du nom de l'humain en première lettre du nom de Zombie
