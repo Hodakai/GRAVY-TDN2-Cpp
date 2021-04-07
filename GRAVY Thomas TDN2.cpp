@@ -3,6 +3,8 @@
 
 using namespace std;
 
+//////////////////////////////////////////////////////////////////////////         Classe Humain         //////////////////////////////////////////////////////////////////////////
+
 class Humain
 {
 public:
@@ -29,11 +31,15 @@ void Humain::afficher()
     cout << "Bonjour je m'apelle " << this->nom  << " et je suis encore un Humain" << endl; //Affichage de l'humain pour attester de son humanité
 }
 
+//////////////////////////////////////////////////////////////////////////         Classe Zombie         //////////////////////////////////////////////////////////////////////////
+
 class Zombie
 {
 public:
     Zombie(Humain* humain); //Le constructeur
     string GetNomZombie(); //Le getter pour le nom du zombie
+    Zombie* manger(Humain* humain);
+    void afficher();
 
 private:
     string nom;
@@ -48,6 +54,21 @@ string Zombie::GetNomZombie() //Methode du getter pour le zombie
 {
     return nom; //Comme pour l'humain on return le nom contenu dans l'attribut nom en parivate de la classe zombie 
 }
+
+Zombie* Zombie::manger(Humain* humain) 
+{
+    Zombie* zombie = new Zombie(humain);
+    cout << "Oh non !!! Notre humain " << humain->GetNomHumain() << " s'est transforme en " << zombie->nom << endl;
+    free(humain);
+    return zombie;
+}
+
+void Zombie::afficher() 
+{
+    cout << this->nom << " est un Zombie !!! Courrez !" << endl; //Affichage du zombie pour attester de son non-humanité
+}
+
+//////////////////////////////////////////////////////////////////////////         Fonctions et Main         //////////////////////////////////////////////////////////////////////////
 
 string CalculNomZombie (string Humain) 
 {
