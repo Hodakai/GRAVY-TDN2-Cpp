@@ -80,6 +80,24 @@ void Zombie::afficher()
     cout << this->nom << " est un Zombie !!!" << endl; //Affichage du zombie pour attester de son non-humanité
 }
 
+//////////////////////////////////////////////////////////////////////////         Classe FinDuMonde         //////////////////////////////////////////////////////////////////////////
+
+class FinDuMonde
+{
+public:
+    void ajouterHumain(Humain* humain);
+    vector <Humain*> humains;
+    vector <Zombie*> zombies;
+
+private:
+
+};
+
+void FinDuMonde::ajouterHumain(Humain* humain) 
+{
+    humains.push_back(humain);
+}
+
 //////////////////////////////////////////////////////////////////////////         Fonctions et Main         //////////////////////////////////////////////////////////////////////////
 
 int main()
