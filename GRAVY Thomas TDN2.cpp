@@ -6,7 +6,7 @@ using namespace std;
 class Humain
 {
 public:
-    string GetNom(); //Le getter
+    string GetNomHumain(); //Le getter
 	Humain(string nom); //Le constructeur
     void afficher();
     
@@ -14,7 +14,7 @@ private:
     string nom;
 };
 
-string Humain::GetNom ()
+string Humain::GetNomHumain()
 {
     return nom; //On retourne la valeur de nom qui est private
 }
@@ -27,6 +27,29 @@ Humain::Humain(string nom)
 void Humain::afficher()
 {
     cout << "Bonjour je m'apelle " << this->nom  << " et je suis encore un Humain" << endl;
+}
+
+class Zombie
+{
+public:
+    Zombie(Humain* humain);
+    string GetNomZombie();
+
+private:
+    string nom;
+};
+
+Zombie::Zombie(Humain* humain)
+{
+    this->nom = CalculNomZombie(humain->GetNomHumain());
+}
+
+string Zombie::GetNomZombie() {
+    return nom;
+}
+
+Zombie::~Zombie()
+{
 }
 
 
@@ -45,5 +68,5 @@ int main()
     Humain* humain2 = new Humain("Roberto"); //Nouvelle instance d'un humain avec un pointeur (nom = "Roberto")
     humain1->afficher(); //Affichage de l'humain1 (Maurice)
     humain2->afficher(); //Affichage de l'humain2 (Roberto)
-    cout << "Oh non !!! Notre humain " << humain1->GetNom() << " s'est transforme en " << CalculNomZombie(humain1->GetNom()) << endl;
+    cout << "Oh non !!! Notre humain " << humain1->GetNomHumain() << " s'est transforme en " << CalculNomZombie(humain1->GetNomHumain()) << endl;
 }
