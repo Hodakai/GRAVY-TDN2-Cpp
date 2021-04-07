@@ -3,6 +3,27 @@
 
 using namespace std;
 
+class Humain
+{
+public:
+    string GetNom(); //Le getter
+	Humain(string nom); //Le constructeur
+    
+private:
+    string nom;
+};
+
+string Humain::GetNom ()
+{
+    return nom; //On retourne la valeur de nom qui est private
+}
+
+Humain::Humain(string nom)
+{
+    this->nom = nom; //On attribue ici la valeur du parametre "nom" dans le champ nom de la classe Humain
+}
+
+
 string CalculNomZombie (string Humain) {
     char ch;
     ch = Humain[0] + 32; //On ajoute 32 au caractère ASCII pour le passer en lowercase
