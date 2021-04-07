@@ -85,9 +85,10 @@ void Zombie::afficher()
 class FinDuMonde
 {
 public:
-    void ajouterHumain(Humain* humain);
-    vector <Humain*> humains;
-    vector <Zombie*> zombies;
+    void ajouterHumain(Humain* humain); //Méthode pour ajouter un humain au vector contenant les humains
+    void debutDeLaFin(); //Methode pour créer le premier zombie à partir d'un humain
+    vector <Humain*> humains; //Vector contenant les humains
+    vector <Zombie*> zombies; //Vector contenant les zombies
 
 private:
 
@@ -95,7 +96,14 @@ private:
 
 void FinDuMonde::ajouterHumain(Humain* humain) 
 {
-    humains.push_back(humain);
+    humains.push_back(humain); //On place l'humain en paramettre à la fin du verctor en attribut dans la classe FinDuMonde
+}
+
+void FinDuMonde::debutDeLaFin() 
+{
+    int rand = rand % (humains.size()); //J'ai décidé ici de désigner le premier humain à se transformer en zombie aléatoirement et en restant dans la taille du vector "humains" grace à la methode humains.size()
+    Zombie* zombie = new Zombie(humains[rand]); //Création du premier zombie avec l'humain choisi aléatoirement avec l'int "rand"
+    zombies.push_back(zombie); //Ajout du zombie à la fin du vector contenant tous les zombies de la partie
 }
 
 //////////////////////////////////////////////////////////////////////////         Fonctions et Main         //////////////////////////////////////////////////////////////////////////
