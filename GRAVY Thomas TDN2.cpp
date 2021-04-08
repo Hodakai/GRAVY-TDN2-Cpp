@@ -71,7 +71,7 @@ string Zombie::GetNomZombie() //Methode du getter pour le zombie
 Zombie* Zombie::manger(Humain* humain) 
 {
     Zombie* zombie = new Zombie(humain); //Création du nouveau zombie
-    cout << "Oh non !!! Notre humain " << humain->GetNomHumain() << " s'est transforme en " << zombie->nom << endl; //Sortie console pour attester de la transformation de notre humain
+    //cout << "Oh non !!! Notre humain " << humain->GetNomHumain() << " s'est transforme en " << zombie->nom << endl; //Sortie console pour attester de la transformation de notre humain
     free(humain); //Liberation de la memoire alouée à notre humain qui est désormais un zombie
     return zombie;
 }
@@ -107,17 +107,25 @@ void FinDuMonde::debutDeLaFin()
     Zombie* zombie = new Zombie(humains[random]); //Création du premier zombie avec l'humain choisi aléatoirement avec l'int "rand"
     zombies.push_back(zombie); //Ajout du zombie à la fin du vector contenant tous les zombies de la partie
     humains.erase(humains.begin() + random); //On supprime l'humain transformé de la liste des humains car le free ne le fait pas à notre place
-    free(humains[random]);
+    //free(humains[random]); //On libère la mémoire alouée pour l'humain qui n'existe plus
 }
 
 void FinDuMonde::fin()
 {
-    for (int i = 0; i <= zombies.size(); i++) {
-        int random = rand() % (humains.size()); //Ici j'ai décidé de faire un nombre aléatoire qui désignera à chaque fois un humain aléatoire dans la liste à notre disposition
-        zombies.push_back(zombies[i]->manger(humains[random]));
-        humains.erase(humains.begin() + random);
-        free(humains[random]);
+    int tours = 0;
+    for (int i = 0; humains.size() != i ; i) 
+    {
+        tours++;
+        cout << "////////////////////   Jour " << tours << "  ////////////////////" << endl << "Il reste " << humains.size() << " survivants..." << endl << "Et " << zombies.size() << " zombies..." << endl;
+        int random = rand() % humains.size(); //Ici j'ai décidé de faire un nombre aléatoire qui désignera à chaque fois un humain aléatoire dans la liste à notre disposition
+        int nbZombies = zombies.size();
+        for (int i = 0; i < nbZombies; i++) {
+            zombies.push_back(zombies[i]->manger(humains[random])); //Ici on met à la fin du vector qui contient les zombies le résultat du zombie qui mange un humain aléatoire
+            humains.erase(humains.begin() + random); //On supprime l'humain transformé de la liste des humains car le free ne le fait pas à notre place
+            //free(humains[random]); //On libère la mémoire alouée pour l'humain qui n'existe plus
+        }
     }
+    cout << "L'humanite aura survecu " << tours << " jours..." << endl;
 }
 
 //////////////////////////////////////////////////////////////////////////         Fonctions et Main         //////////////////////////////////////////////////////////////////////////
@@ -125,6 +133,7 @@ void FinDuMonde::fin()
 int main()
 {
     cout << "Bienvenue dans The Walking Dad !!!" << endl << endl;
+    srand(time(NULL));
     FinDuMonde Fin;
     string prenoms[222] = { "Axel", "Arthur", "Evan", "Adrien", "Alexis", "Antoine", "Adam", "Alexandre", "Baptiste", "Enzo", "Julien", "Leo", "Lucas", "Matteo", "Mael", "Maxime", "Gabriel", "Raphael", "Pierre", 
         "Quentin", "Hugo", "Romain", "Theo", "Tom", "Jules", "Nicolas", "Louis", "Mathis", "Nathan", "Paul", "Valentin", "Ethan", "Kylian", "Matheo", "Aaron", "Antonin", "Anthony", "Ayoub", "Bastien", "Alan",
@@ -143,22 +152,16 @@ int main()
         Humain* humain = new Humain(prenoms[i]);
         Fin.humains.push_back(humain);
     }
-    cout << "Vous avez " << Fin.humains.size() << " humains restants..." << endl << "Vont-ils survivre a la FIN DU MONDE !?" << endl << endl << "Pressez Y pour continuer ou sur N pour arreter le programme...";
+    cout << "Vous avez " << Fin.humains.size() << " humains restants..." << endl << "Vont-ils survivre a la FIN DU MONDE !?" << endl << endl << "Pressez Y pour continuer ou sur N pour arreter le programme..." << endl;
     char choix;
     cin >> choix;
     if (choix == 'Y') 
     {
         system("cls");
-        cout << "La survie de l'humanite a commence !!!" << endl;
-        int tours = 0;
         Fin.debutDeLaFin();
-        /*for (int i = 0; Fin.humains.size() != i; i) 
-        {*/
-            tours++;
-            cout << "////////////////////   Jour " << tours << "  ////////////////////" << endl << "Il reste " << Fin.humains.size() << " survivants..." << endl << "Et "
-                << Fin.zombies.size() << " zombies...";
-        //}
-    /*}
+        Fin.fin();
+        return 0;
+    }
     else if (choix == 'N') 
     {
         cout << "D'accord ! Au revoir..." << endl;
@@ -167,7 +170,6 @@ int main()
     else 
     {
         cout << "Vous avez fait un choix qui n'etait pas propose..." << endl;
-        return 0;*/
+        return 0;
     }
-
 }
