@@ -115,15 +115,15 @@ void FinDuMonde::fin()
     int tours = 0;
     while (humains.size() != 0) 
     {
-        tours++;
+        tours++; //Valeur des tours qui s'incrémente pour voir le nombre de tours ou l'humanité arrive à survivre
         cout << endl << "////////////////////   Jour " << tours << "  ////////////////////" << endl << endl << "Il reste " << humains.size() << " survivants..." << endl << "Et " << zombies.size() << " zombies..." << endl << endl <<
-            "////     Les gens transformes aujourd'hui     ////" << endl << endl;
-        int nbZombies = zombies.size();
+            "////     Les gens transformes aujourd'hui     ////" << endl << endl; // Affichage du total des zombies et des humains
+        int nbZombies = zombies.size(); // ici on prend une valeur fixe du nombre de zombies au début du tour
         for (int i = 0; i < nbZombies; i++) 
         {
-            if (humains.size() == 0) {
-                cout << endl << "Le monde est peuple de zombies maintenant !!!" << endl << "L'humanite aura survecu " << tours << " jours..." << endl;
-                break;
+            if (humains.size() == 0) { //On vérifie ici que le vecteur contenant les humains est vide
+                cout << endl << "Le monde est peuple de zombies maintenant !!!" << endl << "L'humanite aura survecu " << tours << " jours..." << endl; //Affichage de fin de jeu
+                break; //On sort de la fonction
             }
             int random = rand() % humains.size(); //Ici j'ai décidé de faire un nombre aléatoire qui désignera à chaque fois un humain aléatoire dans la liste à notre disposition
             this->zombies.push_back(this->zombies[i]->manger(this->humains[random])); //Ici on met à la fin du vector qui contient les zombies le résultat du zombie qui mange un humain aléatoire
@@ -133,14 +133,14 @@ void FinDuMonde::fin()
     }
 }
 
-//////////////////////////////////////////////////////////////////////////         Fonctions et Main         //////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////         Main         //////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
     cout << "Bienvenue dans The Walking Dad !!!" << endl << endl;
     srand(time(NULL));
-    FinDuMonde* Fin = new FinDuMonde();
-    string prenoms[222] = { "Axel", "Arthur", "Evan", "Adrien", "Alexis", "Antoine", "Adam", "Alexandre", "Baptiste", "Enzo", "Julien", "Leo", "Lucas", "Matteo", "Mael", "Maxime", "Gabriel", "Raphael", "Pierre", 
+    FinDuMonde* Fin = new FinDuMonde(); //Instanciation de la fin du monde
+    string prenoms[216] = { "Axel", "Arthur", "Evan", "Adrien", "Alexis", "Antoine", "Adam", "Alexandre", "Baptiste", "Enzo", "Julien", "Leo", "Lucas", "Matteo", "Mael", "Maxime", "Gabriel", "Raphael", "Pierre", 
         "Quentin", "Hugo", "Romain", "Theo", "Tom", "Jules", "Nicolas", "Louis", "Mathis", "Nathan", "Paul", "Valentin", "Ethan", "Kylian", "Matheo", "Aaron", "Antonin", "Anthony", "Ayoub", "Bastien", "Alan",
         "Aymeric", "Bryan", "Charles", "Elias", "Dorian", "Dylan", "Alex", "Augustin", "Alban", "Aurelien", "Benjamin", "Arnaud", "Gael", "Gabin", "Guillaume", "Florian", "Corentin", "Jean", "Jeremy", "Diego", 
         "Emilien", "Esteban", "David", "Etienne", "Damien", "Erwan", "Lukas", "Loic", "Lorenzo", "Mathias", "Matthieu", "Gaetan", "Gaspard", "Morgan", "Rafael", "Kilian", "Samuel", "Simon", "Kevin", "Sacha", 
@@ -150,24 +150,24 @@ int main()
         "Adele", "Alexia", "Amandine", "Angelina", "Chiara", "Claire", "Coralie", "Elsa", "Agathe", "Constance", "Eleonore", "Elisa", "Elodie", "Fanny", "Alice", "Anna", "Apolline", "Candice", "Charline", "Elise", 
         "Emilie", "Amelie", "Axelle", "Capucine", "Flavie", "Heloise", "Emeline", "Eloise", "Leonie", "Carla", "Cassandra", "Clarisse", "Elina", "Clementine", "Elena", "Marion", "Melina", "Marine", "Melissa", "Lise", 
         "Mailys", "Melanie", "Flora", "Gabrielle", "Ninon", "Rose", "Salome", "Julia", "Lana", "Valentine", "Sofia", "Justine", "Myriam", "Maelle", "Maud", "Yasmine", "Lucile", "Maya", "Olivia", "Nina", "Sara", "Chaima",
-        "Solene", "Clea", "Victoire", "Victoria", "Assia", "Elea", "Anaelle", "Alyssa", "Ilona", "Thomas", "Roberto", "Marc", "Jean", "Sebastien", "Rick", "Michonne"};
+        "Solene", "Clea", "Victoire", "Thomas", "Roberto", "Marc", "Jean", "Sebastien", "Rick", "Michonne"}; //Liste d'une taille de 216 prénoms
     
-    for (int i = 0; i < 222; i++) 
+    for (int i = 0; i < 216; i++) //Petite boucle pour créer notre humanité de jeu avec les noms fournis
     {
         Humain* humain = new Humain(prenoms[i]);
         Fin->ajouterHumain(humain);
     }
-    cout << "Pressez Y pour continuer ou sur N pour arreter le programme..." << endl;
+    cout << "Pressez 'y' pour continuer ou sur 'n' pour arreter le programme..." << endl;
     char choix;
     cin >> choix;
-    if (choix == 'Y') 
+    if (choix == 'y') 
     {
         system("cls");
         Fin->debutDeLaFin();
         Fin->fin();
         return 0;
     }
-    else if (choix == 'N') 
+    else if (choix == 'n') 
     {
         cout << "D'accord ! Au revoir..." << endl;
         return 0;
